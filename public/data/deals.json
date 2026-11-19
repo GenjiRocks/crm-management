@@ -1,0 +1,177 @@
+[
+  {
+    "id": "deal-1",
+    "tenantId": "tenant-acme",
+    "title": "Acme Corp Deal - Global Enterprise Suite",
+    "companyId": "comp-1",
+    "companyName": "Acme Corporation",
+    "contactId": "cnt-1",
+    "contactName": "Jake Williams",
+    "value": 75000,
+    "currency": "$",
+    "stageId": "stage-proposal",
+    "probability": 60,
+    "expectedCloseDate": "2025-06-30",
+    "assignedTo": "usr-1",
+    "priority": "Urgent",
+    "tags": [
+      "Enterprise",
+      "Multi-Year",
+      "Renewal"
+    ],
+    "createdAt": "2025-04-10T10:00:00Z",
+    "updatedAt": "2025-05-20T14:00:00Z",
+    "customFields": {
+      "paymentTerms": "Annual Upfront",
+      "discountApplied": "15%"
+    }
+  },
+  {
+    "id": "deal-2",
+    "tenantId": "tenant-acme",
+    "title": "Beta Industries - Production Monitoring Suite",
+    "companyId": "comp-2",
+    "companyName": "Beta Industries",
+    "contactId": "cnt-3",
+    "contactName": "Michael Johnson",
+    "value": 45000,
+    "currency": "$",
+    "stageId": "stage-qualify",
+    "probability": 40,
+    "expectedCloseDate": "2025-07-15",
+    "assignedTo": "usr-2",
+    "priority": "High",
+    "tags": [
+      "Manufacturing",
+      "IoT"
+    ],
+    "createdAt": "2025-04-18T11:20:00Z",
+    "updatedAt": "2025-05-15T09:30:00Z"
+  },
+  {
+    "id": "deal-3",
+    "tenantId": "tenant-acme",
+    "title": "Omega Partners - FinTech Gateway Integration",
+    "companyId": "comp-3",
+    "companyName": "Omega Partners Tech",
+    "contactId": "cnt-4",
+    "contactName": "Chloe Taylor",
+    "value": 95000,
+    "currency": "$",
+    "stageId": "stage-negotiate",
+    "probability": 80,
+    "expectedCloseDate": "2025-06-15",
+    "assignedTo": "usr-3",
+    "priority": "Urgent",
+    "tags": [
+      "FinTech",
+      "High-Yield"
+    ],
+    "createdAt": "2025-03-25T14:40:00Z",
+    "updatedAt": "2025-05-19T11:00:00Z"
+  },
+  {
+    "id": "deal-4",
+    "tenantId": "tenant-acme",
+    "title": "Zenith Systems - Hybrid Cloud Orchestration",
+    "companyId": "comp-4",
+    "companyName": "Zenith Systems Global",
+    "contactId": "cnt-5",
+    "contactName": "Alexander Novak",
+    "value": 140000,
+    "currency": "$",
+    "stageId": "stage-won",
+    "probability": 100,
+    "expectedCloseDate": "2025-05-14",
+    "assignedTo": "usr-1",
+    "priority": "Urgent",
+    "tags": [
+      "Cloud",
+      "Closed-Won",
+      "Tier 1"
+    ],
+    "createdAt": "2025-02-10T09:00:00Z",
+    "updatedAt": "2025-05-14T17:00:00Z"
+  },
+  {
+    "id": "deal-5",
+    "tenantId": "tenant-acme",
+    "title": "TechSolutions Inquiry - Starter Tier",
+    "companyId": "comp-5",
+    "companyName": "Delta Group Logistics",
+    "value": 18000,
+    "currency": "$",
+    "stageId": "stage-prospect",
+    "probability": 20,
+    "expectedCloseDate": "2025-08-30",
+    "assignedTo": "usr-2",
+    "priority": "Medium",
+    "tags": [
+      "Inbound",
+      "Discovery"
+    ],
+    "createdAt": "2025-05-02T13:15:00Z",
+    "updatedAt": "2025-05-18T10:00:00Z"
+  },
+  {
+    "id": "deal-6",
+    "tenantId": "tenant-acme",
+    "title": "Apex Innovations - Advanced Analytics Engine",
+    "companyId": "comp-2",
+    "companyName": "Beta Industries",
+    "value": 60000,
+    "currency": "$",
+    "stageId": "stage-proposal",
+    "probability": 60,
+    "expectedCloseDate": "2025-07-01",
+    "assignedTo": "usr-3",
+    "priority": "High",
+    "tags": [
+      "Analytics",
+      "Expansion"
+    ],
+    "createdAt": "2025-04-22T15:30:00Z",
+    "updatedAt": "2025-05-16T14:20:00Z"
+  },
+  {
+    "id": "deal-7",
+    "tenantId": "tenant-acme",
+    "title": "Summit Holdings - Multi-Branch License",
+    "companyId": "comp-1",
+    "companyName": "Acme Corporation",
+    "value": 125000,
+    "currency": "$",
+    "stageId": "stage-negotiate",
+    "probability": 80,
+    "expectedCloseDate": "2025-06-20",
+    "assignedTo": "usr-1",
+    "priority": "Urgent",
+    "tags": [
+      "Key-Account",
+      "Expansion"
+    ],
+    "createdAt": "2025-03-15T11:00:00Z",
+    "updatedAt": "2025-05-20T16:45:00Z"
+  },
+  {
+    "id": "deal-8",
+    "tenantId": "tenant-acme",
+    "title": "Stellar Services - Data Pipeline API",
+    "companyId": "comp-4",
+    "companyName": "Zenith Systems Global",
+    "value": 35000,
+    "currency": "$",
+    "stageId": "stage-lost",
+    "probability": 0,
+    "expectedCloseDate": "2025-05-01",
+    "assignedTo": "usr-3",
+    "priority": "Low",
+    "tags": [
+      "API",
+      "Lost"
+    ],
+    "lostReason": "Budget postponed to Q4",
+    "createdAt": "2025-03-01T10:00:00Z",
+    "updatedAt": "2025-05-01T15:00:00Z"
+  }
+]

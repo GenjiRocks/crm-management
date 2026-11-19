@@ -1,0 +1,41 @@
+[
+  {
+    "id": "tenant-acme",
+    "name": "Octax Enterprise Cloud",
+    "slug": "octax",
+    "domain": "octax.cloud",
+    "logoText": "Octax Cloud",
+    "brandColor": "#4f46e5",
+    "currency": "$",
+    "currencyCode": "USD",
+    "timezone": "America/New_York (EST)",
+    "industry": "Enterprise Software & Cloud",
+    "subscriptionPlan": "Enterprise"
+  },
+  {
+    "id": "tenant-apex",
+    "name": "Apex Health Systems",
+    "slug": "apex-health",
+    "domain": "apexhealth.io",
+    "logoText": "Apex Health",
+    "brandColor": "#059669",
+    "currency": "€",
+    "currencyCode": "EUR",
+    "timezone": "Europe/Berlin (CET)",
+    "industry": "Healthcare Technology",
+    "subscriptionPlan": "Growth"
+  },
+  {
+    "id": "tenant-logistics",
+    "name": "Vanguard Freight Global",
+    "slug": "vanguard",
+    "domain": "vanguardfreight.co.uk",
+    "logoText": "Vanguard Global",
+    "brandColor": "#0284c7",
+    "currency": "£",
+    "currencyCode": "GBP",
+    "timezone": "Europe/London (GMT)",
+    "industry": "Supply Chain & Logistics",
+    "subscriptionPlan": "Enterprise"
+  }
+]

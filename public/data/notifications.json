@@ -1,0 +1,42 @@
+[
+  {
+    "id": "notif-1",
+    "tenantId": "tenant-acme",
+    "title": "Automated Email Dispatched",
+    "message": "Proposal & Whitepaper sent to Jake Williams (Acme Corp). Logged to Activity Timeline.",
+    "type": "email",
+    "timestamp": "2025-05-20T11:15:00Z",
+    "read": false,
+    "link": "/pipeline"
+  },
+  {
+    "id": "notif-2",
+    "tenantId": "tenant-acme",
+    "title": "Deal Won: Zenith Systems",
+    "message": "Congratulations! $140,000 deal moved to Closed Won. Onboarding workflow triggered.",
+    "type": "deal",
+    "timestamp": "2025-05-14T17:00:00Z",
+    "read": false,
+    "link": "/pipeline"
+  },
+  {
+    "id": "notif-3",
+    "tenantId": "tenant-acme",
+    "title": "Duplicate Lead Detected",
+    "message": "Potential duplicate lead detected for \"CyberApex Security\". Review merge recommendations.",
+    "type": "lead",
+    "timestamp": "2025-05-20T11:05:00Z",
+    "read": false,
+    "link": "/leads"
+  },
+  {
+    "id": "notif-4",
+    "tenantId": "tenant-acme",
+    "title": "Workflow Executed",
+    "message": "High-Intent Hot Lead Escalation triggered for Harrison Fordham (Score: 92).",
+    "type": "workflow",
+    "timestamp": "2025-05-18T10:15:00Z",
+    "read": true,
+    "link": "/workflows"
+  }
+]

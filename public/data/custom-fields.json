@@ -1,0 +1,67 @@
+[
+  {
+    "id": "cf-1",
+    "tenantId": "tenant-acme",
+    "entity": "deal",
+    "key": "paymentTerms",
+    "label": "Payment Terms",
+    "type": "select",
+    "options": [
+      "Net 30",
+      "Net 45",
+      "Annual Upfront",
+      "Quarterly"
+    ],
+    "required": false
+  },
+  {
+    "id": "cf-2",
+    "tenantId": "tenant-acme",
+    "entity": "deal",
+    "key": "discountApplied",
+    "label": "Discount Percentage",
+    "type": "text",
+    "required": false
+  },
+  {
+    "id": "cf-3",
+    "tenantId": "tenant-acme",
+    "entity": "lead",
+    "key": "currentCrm",
+    "label": "Current CRM System",
+    "type": "select",
+    "options": [
+      "Salesforce",
+      "HubSpot",
+      "Pipedrive",
+      "Spreadsheets",
+      "None"
+    ],
+    "required": false
+  },
+  {
+    "id": "cf-4",
+    "tenantId": "tenant-acme",
+    "entity": "lead",
+    "key": "decisionMaker",
+    "label": "Is Decision Maker?",
+    "type": "boolean",
+    "required": false
+  },
+  {
+    "id": "cf-5",
+    "tenantId": "tenant-acme",
+    "entity": "company",
+    "key": "securityClearance",
+    "label": "Compliance Level",
+    "type": "select",
+    "options": [
+      "SOC2 Type II",
+      "ISO 27001",
+      "HIPAA",
+      "FedRAMP Ready",
+      "Standard"
+    ],
+    "required": false
+  }
+]

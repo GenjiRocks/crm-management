@@ -1,0 +1,105 @@
+[
+  {
+    "id": "wf-1",
+    "tenantId": "tenant-acme",
+    "name": "Closed-Won Automated Client Welcome & Team Alert",
+    "description": "When a deal enters \"Closed Won\", immediately send simulated onboarding email to client and notify sales team.",
+    "trigger": "deal_stage_changed",
+    "conditions": [
+      {
+        "field": "stageId",
+        "operator": "equals",
+        "value": "stage-won"
+      }
+    ],
+    "actions": [
+      {
+        "type": "send_simulated_email",
+        "params": {
+          "template": "Welcome & Next Steps",
+          "subject": "Welcome to Octax Cloud - Your Onboarding Journey Begins!"
+        }
+      },
+      {
+        "type": "create_task",
+        "params": {
+          "title": "Schedule Executive Onboarding Kickoff Call",
+          "priority": "Urgent"
+        }
+      },
+      {
+        "type": "show_toast",
+        "params": {
+          "message": "🎉 Deal Closed Won! Automated onboarding workflow initiated."
+        }
+      }
+    ],
+    "enabled": true,
+    "executionsCount": 14,
+    "lastExecutedAt": "2025-05-14T17:00:00Z"
+  },
+  {
+    "id": "wf-2",
+    "tenantId": "tenant-acme",
+    "name": "High-Intent Hot Lead Escalation (Score >= 80)",
+    "description": "Automatically elevate priority to Urgent and create follow-up task when a lead score reaches 80 or above.",
+    "trigger": "lead_score_exceeded",
+    "conditions": [
+      {
+        "field": "score",
+        "operator": "greater_than",
+        "value": 79
+      }
+    ],
+    "actions": [
+      {
+        "type": "create_task",
+        "params": {
+          "title": "Immediate 1-Hour Outreach for Hot Inbound Lead",
+          "priority": "Urgent"
+        }
+      },
+      {
+        "type": "send_simulated_email",
+        "params": {
+          "template": "Fast Track Demo Confirmation",
+          "subject": "Priority Access: Your Octax Platform Demo is Scheduled"
+        }
+      }
+    ],
+    "enabled": true,
+    "executionsCount": 38,
+    "lastExecutedAt": "2025-05-18T10:15:00Z"
+  },
+  {
+    "id": "wf-3",
+    "tenantId": "tenant-acme",
+    "name": "Enterprise Deal High-Value Flag (> $50,000)",
+    "description": "Automatically tag deal as Urgent and alert Sales VP when value exceeds $50,000.",
+    "trigger": "deal_created",
+    "conditions": [
+      {
+        "field": "value",
+        "operator": "greater_than",
+        "value": 50000
+      }
+    ],
+    "actions": [
+      {
+        "type": "change_deal_priority",
+        "params": {
+          "priority": "Urgent"
+        }
+      },
+      {
+        "type": "show_toast",
+        "params": {
+          "message": "🚀 High-value enterprise opportunity registered ($50k+)"
+        }
+      }
+    ],
+    "enabled": true,
+    "executionsCount": 9,
+    "lastExecutedAt": "2025-05-20T14:00:00Z"
+  }
+]

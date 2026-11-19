@@ -1,0 +1,102 @@
+[
+  {
+    "id": "act-1",
+    "tenantId": "tenant-acme",
+    "type": "meeting",
+    "title": "Discovery & Platform Deep-Dive",
+    "description": "Technical discovery call with Jake Williams & Sarah Chen. Discussed SAML SSO, audit logging, and SLA requirements.",
+    "timestamp": "2025-05-20T13:30:00Z",
+    "userId": "usr-1",
+    "userName": "Jessica Miller",
+    "relatedType": "deal",
+    "relatedId": "deal-1",
+    "relatedTitle": "Acme Corp Deal",
+    "metadata": {
+      "durationMinutes": 45,
+      "meetingLocation": "Google Meet / Zoom Room 4",
+      "isCompleted": true
+    }
+  },
+  {
+    "id": "act-2",
+    "tenantId": "tenant-acme",
+    "type": "email",
+    "title": "Email Sent: Proposal & Security Whitepaper",
+    "description": "Sent enterprise SLA breakdown, SOC2 summary, and pricing proposal deck to Jake Williams.",
+    "timestamp": "2025-05-20T11:15:00Z",
+    "userId": "usr-1",
+    "userName": "Jessica Miller",
+    "relatedType": "deal",
+    "relatedId": "deal-1",
+    "relatedTitle": "Acme Corp Deal",
+    "metadata": {
+      "emailSubject": "Octax Enterprise Proposal & Architecture Overview",
+      "emailTo": "jake.williams@acmecorp.com"
+    }
+  },
+  {
+    "id": "act-3",
+    "tenantId": "tenant-acme",
+    "type": "call",
+    "title": "Phone Call: Initial Requirements Alignment",
+    "description": "Spoke with Jake Williams about enterprise plan seating requirements. Confirmed 45 seat licenses needed for July kickoff.",
+    "timestamp": "2025-05-20T10:30:00Z",
+    "userId": "usr-1",
+    "userName": "Jessica Miller",
+    "relatedType": "deal",
+    "relatedId": "deal-1",
+    "relatedTitle": "Acme Corp Deal",
+    "metadata": {
+      "durationMinutes": 18,
+      "callOutcome": "Connected"
+    }
+  },
+  {
+    "id": "act-4",
+    "tenantId": "tenant-acme",
+    "type": "task",
+    "title": "Follow-up Meeting: Demo Platform Q&A",
+    "description": "Schedule engineering demo with VP of Security before contract signoff.",
+    "timestamp": "2025-05-20T15:00:00Z",
+    "userId": "usr-1",
+    "userName": "Jessica Miller",
+    "relatedType": "deal",
+    "relatedId": "deal-1",
+    "relatedTitle": "Acme Corp Deal",
+    "metadata": {
+      "dueDate": "2025-05-24",
+      "priority": "High",
+      "isCompleted": false
+    }
+  },
+  {
+    "id": "act-5",
+    "tenantId": "tenant-acme",
+    "type": "note",
+    "title": "Internal Strategy Note",
+    "description": "Procurement requested net 45 payment terms. Approved by finance as deal value exceeds $70k.",
+    "timestamp": "2025-05-20T16:30:00Z",
+    "userId": "usr-2",
+    "userName": "Marcus Vance",
+    "relatedType": "deal",
+    "relatedId": "deal-1",
+    "relatedTitle": "Acme Corp Deal"
+  },
+  {
+    "id": "act-6",
+    "tenantId": "tenant-acme",
+    "type": "stage_change",
+    "title": "Stage Moved to Closed Won 🎉",
+    "description": "Deal was closed and won by Jessica Miller! Automated onboarding email and setup task triggered.",
+    "timestamp": "2025-05-14T17:00:00Z",
+    "userId": "usr-1",
+    "userName": "Jessica Miller",
+    "relatedType": "deal",
+    "relatedId": "deal-4",
+    "relatedTitle": "Zenith Systems Hybrid Cloud",
+    "metadata": {
+      "stageFrom": "Negotiation",
+      "stageTo": "Closed Won"
+    }
+  }
+]

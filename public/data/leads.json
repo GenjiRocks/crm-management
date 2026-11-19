@@ -1,0 +1,155 @@
+[
+  {
+    "id": "lead-1",
+    "tenantId": "tenant-acme",
+    "firstName": "Harrison",
+    "lastName": "Fordham",
+    "email": "h.fordham@cyberapex.io",
+    "phone": "+1 (555) 712-9901",
+    "company": "CyberApex Security",
+    "title": "Chief Information Officer",
+    "status": "Qualified",
+    "source": "Website",
+    "score": 92,
+    "scoreTier": "Hot",
+    "estimatedValue": 85000,
+    "assignedTo": "usr-1",
+    "tags": [
+      "Cybersecurity",
+      "High-Intent",
+      "Enterprise"
+    ],
+    "notes": "Requested urgent demo for 500-seat multi-tenant rollout.",
+    "createdAt": "2025-05-10T08:30:00Z",
+    "lastContactedAt": "2025-05-18T10:15:00Z",
+    "customFields": {
+      "decisionMaker": true,
+      "currentCrm": "Salesforce (Migrating)"
+    }
+  },
+  {
+    "id": "lead-2",
+    "tenantId": "tenant-acme",
+    "firstName": "Rebecca",
+    "lastName": "Solis",
+    "email": "rebecca.solis@pulsehealth.org",
+    "phone": "+1 (555) 412-8821",
+    "company": "Pulse Healthcare Network",
+    "title": "Director of Business Development",
+    "status": "Contacted",
+    "source": "Inbound Demo",
+    "score": 78,
+    "scoreTier": "Warm",
+    "estimatedValue": 45000,
+    "assignedTo": "usr-2",
+    "tags": [
+      "Healthcare",
+      "HIPAA"
+    ],
+    "notes": "Followed up after webinar. Evaluating pricing tiers.",
+    "createdAt": "2025-05-12T14:10:00Z",
+    "lastContactedAt": "2025-05-19T13:45:00Z",
+    "customFields": {
+      "decisionMaker": true,
+      "currentCrm": "HubSpot"
+    }
+  },
+  {
+    "id": "lead-3",
+    "tenantId": "tenant-acme",
+    "firstName": "Harri",
+    "lastName": "Fordham",
+    "email": "h.fordham@cyberapex.io",
+    "phone": "+1 (555) 712-9901",
+    "company": "CyberApex",
+    "title": "CIO",
+    "status": "New",
+    "source": "Event",
+    "score": 65,
+    "scoreTier": "Warm",
+    "estimatedValue": 85000,
+    "assignedTo": "usr-3",
+    "tags": [
+      "Duplicate",
+      "Webform"
+    ],
+    "notes": "Submitted contact form at SaaS Expo 2025.",
+    "createdAt": "2025-05-20T11:00:00Z",
+    "duplicateMatchIds": [
+      "lead-1"
+    ]
+  },
+  {
+    "id": "lead-4",
+    "tenantId": "tenant-acme",
+    "firstName": "Kavita",
+    "lastName": "Patel",
+    "email": "k.patel@finovate.tech",
+    "phone": "+1 (555) 329-8472",
+    "company": "Finovate Capital",
+    "title": "VP of Technology",
+    "status": "Proposal",
+    "source": "Referral",
+    "score": 88,
+    "scoreTier": "Hot",
+    "estimatedValue": 120000,
+    "assignedTo": "usr-1",
+    "tags": [
+      "FinTech",
+      "High-Value"
+    ],
+    "notes": "Sent enterprise proposal and SLA agreement.",
+    "createdAt": "2025-05-04T09:00:00Z",
+    "lastContactedAt": "2025-05-20T15:30:00Z",
+    "customFields": {
+      "decisionMaker": true,
+      "currentCrm": "Pipedrive"
+    }
+  },
+  {
+    "id": "lead-5",
+    "tenantId": "tenant-acme",
+    "firstName": "Derek",
+    "lastName": "Sterling",
+    "email": "derek@stratolabs.co",
+    "phone": "+1 (555) 819-2741",
+    "company": "Strato Labs",
+    "title": "Founder & CEO",
+    "status": "New",
+    "source": "LinkedIn",
+    "score": 42,
+    "scoreTier": "Cold",
+    "estimatedValue": 15000,
+    "assignedTo": "usr-3",
+    "tags": [
+      "Startup",
+      "SMB"
+    ],
+    "notes": "Connected via sales outreach on LinkedIn.",
+    "createdAt": "2025-05-19T16:20:00Z"
+  },
+  {
+    "id": "lead-6",
+    "tenantId": "tenant-acme",
+    "firstName": "Kavita",
+    "lastName": "Patel",
+    "email": "kavita@finovate.tech",
+    "phone": "+1 (555) 329-8472",
+    "company": "Finovate Capital Group",
+    "title": "VP Tech",
+    "status": "New",
+    "source": "Website",
+    "score": 55,
+    "scoreTier": "Warm",
+    "estimatedValue": 120000,
+    "assignedTo": "usr-2",
+    "tags": [
+      "Duplicate Candidate"
+    ],
+    "notes": "Re-entered through pricing calculator.",
+    "createdAt": "2025-05-21T08:15:00Z",
+    "duplicateMatchIds": [
+      "lead-4"
+    ]
+  }
+]

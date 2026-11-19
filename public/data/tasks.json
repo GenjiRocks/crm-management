@@ -1,0 +1,54 @@
+[
+  {
+    "id": "tsk-1",
+    "tenantId": "tenant-acme",
+    "title": "Follow-up on Acme Corp MSA Redlines",
+    "dueDate": "2025-05-22",
+    "dueTime": "14:00",
+    "priority": "Urgent",
+    "completed": false,
+    "assignedTo": "usr-1",
+    "relatedType": "deal",
+    "relatedId": "deal-1",
+    "relatedName": "Acme Corp Deal"
+  },
+  {
+    "id": "tsk-2",
+    "tenantId": "tenant-acme",
+    "title": "Send Custom API Pricing Matrix to Chloe",
+    "dueDate": "2025-05-23",
+    "dueTime": "11:30",
+    "priority": "High",
+    "completed": false,
+    "assignedTo": "usr-3",
+    "relatedType": "deal",
+    "relatedId": "deal-3",
+    "relatedName": "Omega Partners Tech"
+  },
+  {
+    "id": "tsk-3",
+    "tenantId": "tenant-acme",
+    "title": "Lead Outreach: Call Harrison at CyberApex",
+    "dueDate": "2025-05-21",
+    "dueTime": "16:00",
+    "priority": "High",
+    "completed": false,
+    "assignedTo": "usr-1",
+    "relatedType": "lead",
+    "relatedId": "lead-1",
+    "relatedName": "CyberApex Security"
+  },
+  {
+    "id": "tsk-4",
+    "tenantId": "tenant-acme",
+    "title": "Resolve Duplicate Lead Records (Finovate Capital)",
+    "dueDate": "2025-05-24",
+    "dueTime": "17:00",
+    "priority": "Medium",
+    "completed": false,
+    "assignedTo": "usr-2",
+    "relatedType": "lead",
+    "relatedId": "lead-6",
+    "relatedName": "Finovate Capital Group"
+  }
+]

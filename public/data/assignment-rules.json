@@ -1,0 +1,29 @@
+[
+  {
+    "id": "rule-1",
+    "tenantId": "tenant-acme",
+    "name": "Round-Robin Inbound Routing",
+    "strategy": "round_robin",
+    "assignToUserIds": [
+      "usr-1",
+      "usr-2",
+      "usr-3"
+    ],
+    "active": true
+  },
+  {
+    "id": "rule-2",
+    "tenantId": "tenant-acme",
+    "name": "Enterprise VIP Routing (Score > 85)",
+    "strategy": "lead_score_tier",
+    "criteria": {
+      "field": "score",
+      "operator": "greater_than",
+      "value": 85
+    },
+    "assignToUserIds": [
+      "usr-1"
+    ],
+    "active": true
+  }
+]

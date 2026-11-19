@@ -1,0 +1,72 @@
+[
+  {
+    "id": "cnt-1",
+    "tenantId": "tenant-acme",
+    "firstName": "Jake",
+    "lastName": "Williams",
+    "email": "jake.williams@acmecorp.com",
+    "phone": "+1 (555) 234-1101",
+    "companyId": "comp-1",
+    "companyName": "Acme Corporation",
+    "title": "Head of Sales Operations",
+    "department": "Sales & Revenue",
+    "lifecycleStage": "Opportunity",
+    "lastContacted": "2025-05-20T10:30:00Z"
+  },
+  {
+    "id": "cnt-2",
+    "tenantId": "tenant-acme",
+    "firstName": "Sarah",
+    "lastName": "Chen",
+    "email": "sarah.chen@acmecorp.com",
+    "phone": "+1 (555) 234-1102",
+    "companyId": "comp-1",
+    "companyName": "Acme Corporation",
+    "title": "Sales Operations Manager",
+    "department": "Operations",
+    "lifecycleStage": "Opportunity",
+    "lastContacted": "2025-05-18T16:00:00Z"
+  },
+  {
+    "id": "cnt-3",
+    "tenantId": "tenant-acme",
+    "firstName": "Michael",
+    "lastName": "Johnson",
+    "email": "m.johnson@betaindustries.io",
+    "phone": "+1 (555) 987-2201",
+    "companyId": "comp-2",
+    "companyName": "Beta Industries",
+    "title": "VP of Revenue Systems",
+    "department": "Executive Team",
+    "lifecycleStage": "Customer",
+    "lastContacted": "2025-05-15T14:20:00Z"
+  },
+  {
+    "id": "cnt-4",
+    "tenantId": "tenant-acme",
+    "firstName": "Chloe",
+    "lastName": "Taylor",
+    "email": "chloe.taylor@omegapartners.com",
+    "phone": "+1 (555) 456-3301",
+    "companyId": "comp-3",
+    "companyName": "Omega Partners Tech",
+    "title": "Chief Technology Officer",
+    "department": "Engineering",
+    "lifecycleStage": "Opportunity",
+    "lastContacted": "2025-05-19T11:00:00Z"
+  },
+  {
+    "id": "cnt-5",
+    "tenantId": "tenant-acme",
+    "firstName": "Alexander",
+    "lastName": "Novak",
+    "email": "a.novak@zenithsystems.com",
+    "phone": "+1 (555) 321-4401",
+    "companyId": "comp-4",
+    "companyName": "Zenith Systems Global",
+    "title": "VP of Procurement",
+    "department": "Purchasing",
+    "lifecycleStage": "Customer",
+    "lastContacted": "2025-05-21T09:40:00Z"
+  }
+]

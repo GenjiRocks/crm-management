@@ -1,0 +1,42 @@
+[
+  {
+    "id": "usr-1",
+    "name": "Jessica Miller",
+    "email": "jessica.m@octax.cloud",
+    "role": "Admin",
+    "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
+    "tenantId": "tenant-acme",
+    "title": "VP of Global Sales",
+    "department": "Sales Leadership"
+  },
+  {
+    "id": "usr-2",
+    "name": "Marcus Vance",
+    "email": "marcus.v@octax.cloud",
+    "role": "Sales Manager",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+    "tenantId": "tenant-acme",
+    "title": "Enterprise Sales Lead",
+    "department": "Commercial Accounts"
+  },
+  {
+    "id": "usr-3",
+    "name": "Elena Rostova",
+    "email": "elena.r@octax.cloud",
+    "role": "Sales Rep",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+    "tenantId": "tenant-acme",
+    "title": "Account Executive",
+    "department": "Inbound Sales"
+  },
+  {
+    "id": "usr-4",
+    "name": "David Kim",
+    "email": "david.k@octax.cloud",
+    "role": "Viewer",
+    "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150",
+    "tenantId": "tenant-acme",
+    "title": "Financial Auditor",
+    "department": "Finance"
+  }
+]
