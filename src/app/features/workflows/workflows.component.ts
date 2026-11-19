@@ -163,108 +163,199 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
         title="Build Custom Automation Workflow"
         subtitle="Set condition triggers and automated email/task actions"
         icon="workflows"
-        maxWidth="600px"
+        badge="Engine Builder"
+        maxWidth="680px"
         (close)="isCreateModalOpen = false">
 
-        <form (ngSubmit)="submitWorkflowForm()" class="space-y-4">
-          <div>
-            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Rule Name *</label>
-            <input
-              type="text"
-              [(ngModel)]="formName"
-              name="name"
-              required
-              placeholder="e.g. High-Value Inbound Alert"
-              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none">
-          </div>
+        <form (ngSubmit)="submitWorkflowForm()" class="flex-1 flex flex-col min-h-0 overflow-hidden">
 
-          <div>
-            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Description</label>
-            <input
-              type="text"
-              [(ngModel)]="formDescription"
-              name="desc"
-              placeholder="Explain what this automation accomplishes"
-              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none">
-          </div>
+          <!-- Middle Scrollable Section (Between Top Header & Bottom Footer) -->
+          <div class="p-6 overflow-y-auto min-h-0 modal-content-scroll flex-1 space-y-4">
 
-          <!-- Trigger Selector -->
-          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-2">
-            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider block">
-              1. When this event happens (Trigger)
-            </span>
-            <select
-              [(ngModel)]="formTrigger"
-              name="trigger"
-              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
-              <option value="deal_stage_changed">Deal Stage Changes (e.g. Moved to Won or Negotiate)</option>
-              <option value="lead_score_exceeded">Lead Score Exceeds Threshold (e.g. Hot Lead > 80)</option>
-              <option value="deal_created">New Deal Created (> $50k)</option>
-              <option value="lead_created">New Inbound Lead Created</option>
-            </select>
-          </div>
-
-          <!-- Action Selector -->
-          <div class="p-3.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800 space-y-3">
-            <span class="text-xs font-bold text-indigo-900 dark:text-indigo-200 uppercase tracking-wider block">
-              2. Perform these automated actions
-            </span>
-            
-            <div class="space-y-2">
-              <label class="flex items-center gap-2 text-xs font-medium text-slate-800 dark:text-slate-200">
-                <input
-                  type="checkbox"
-                  [(ngModel)]="actionSendEmail"
-                  name="actEmail"
-                  class="rounded text-indigo-600">
-                <span>Send Simulated Automated Email to Client / Owner</span>
-              </label>
-
-              @if (actionSendEmail) {
-                <div class="pl-6">
-                  <input
-                    type="text"
-                    [(ngModel)]="emailSubject"
-                    name="emailSubject"
-                    placeholder="Automated Email Subject"
-                    class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
+            <!-- 1. Live Automation Rule Preview Card (Reference Image 3 Style) -->
+          <div class="p-4 rounded-2xl bg-gradient-to-br from-indigo-50/90 via-slate-50/80 to-purple-50/60 dark:from-indigo-950/40 dark:via-slate-900/60 dark:to-purple-950/30 border border-indigo-200/80 dark:border-indigo-900/40 shadow-xs">
+            <div class="flex items-center justify-between gap-3 mb-2.5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-indigo-500/25">
+                  <app-icon name="workflows" [size]="18"></app-icon>
                 </div>
-              }
-
-              <label class="flex items-center gap-2 text-xs font-medium text-slate-800 dark:text-slate-200">
-                <input
-                  type="checkbox"
-                  [(ngModel)]="actionCreateTask"
-                  name="actTask"
-                  class="rounded text-indigo-600">
-                <span>Automatically Create Follow-up Task for Sales Rep</span>
-              </label>
-
-              @if (actionCreateTask) {
-                <div class="pl-6">
-                  <input
-                    type="text"
-                    [(ngModel)]="taskTitle"
-                    name="taskTitle"
-                    placeholder="Follow-up Task Title"
-                    class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+                      {{ formName.trim() || 'New Automation Workflow' }}
+                    </h4>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                      Engine Trigger
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                    {{ formDescription.trim() || 'Automated condition execution for active tenant deals and leads' }}
+                  </p>
                 </div>
-              }
+              </div>
+
+              <span class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 hidden sm:flex items-center gap-1 shadow-2xs">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Active Rule</span>
+              </span>
+            </div>
+
+            <!-- Mini Quick Chips -->
+            <div class="grid grid-cols-3 gap-2 pt-2 border-t border-indigo-100/70 dark:border-indigo-900/40 text-center">
+              <div class="p-1.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-[10px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                ⚡ {{ formTrigger === 'deal_stage_changed' ? 'Stage Change' : (formTrigger === 'lead_score_exceeded' ? 'Hot Lead Score' : 'New Inbound') }}
+              </div>
+              <div class="p-1.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-[10px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                🤖 {{ (actionSendEmail ? 1 : 0) + (actionCreateTask ? 1 : 0) }} Automated Action(s)
+              </div>
+              <div class="p-1.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-[10px] text-indigo-600 dark:text-indigo-400 font-bold truncate">
+                ⏱️ Real-time Trigger
+              </div>
             </div>
           </div>
 
-          <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
-            <button
-              type="button"
-              (click)="isCreateModalOpen = false"
-              class="px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300">
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="px-4 py-1.5 text-xs font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm">
-              Save Automation Rule
-            </button>
+          <!-- 2. Form Inputs Section -->
+          <div class="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-800/50 border border-slate-200/90 dark:border-slate-700/80 space-y-3.5 shadow-2xs">
+            <div class="flex items-center justify-between pb-1 border-b border-slate-200/60 dark:border-slate-700/60">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                  <app-icon name="workflows" [size]="13"></app-icon>
+                </span>
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 tracking-tight">Rule Definition & Scope</span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-medium">* Required fields</span>
+            </div>
+
+            <!-- Rule Name & Description -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                Workflow Rule Name <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <app-icon name="bookmark" [size]="14"></app-icon>
+                </span>
+                <input
+                  type="text"
+                  [(ngModel)]="formName"
+                  name="name"
+                  required
+                  placeholder="e.g. High-Value Inbound Alert"
+                  class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Workflow Objective / Description</label>
+              <input
+                type="text"
+                [(ngModel)]="formDescription"
+                name="desc"
+                placeholder="Explain what business outcome this automation accomplishes..."
+                class="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
+            </div>
+
+            <!-- Trigger Selector Card -->
+            <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 space-y-2">
+              <span class="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block">
+                1. When this event happens (Trigger Condition)
+              </span>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <app-icon name="bell" [size]="14"></app-icon>
+                </span>
+                <select
+                  [(ngModel)]="formTrigger"
+                  name="trigger"
+                  class="w-full appearance-none pl-10 pr-8 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 shadow-2xs">
+                  <option value="deal_stage_changed">⚡ Deal Stage Changes (Moved to Won or Negotiate)</option>
+                  <option value="lead_score_exceeded">🔥 Lead Score Exceeds Threshold (Hot Lead > 80)</option>
+                  <option value="deal_created">💰 New High-Value Opportunity Created (> $50k)</option>
+                  <option value="lead_created">📥 New Inbound Lead Registered</option>
+                </select>
+                <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                  <app-icon name="chevron-down" [size]="13"></app-icon>
+                </span>
+              </div>
+            </div>
+
+            <!-- Automated Action Selector Card -->
+            <div class="p-3.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800 space-y-3">
+              <span class="text-[11px] font-bold text-indigo-900 dark:text-indigo-200 uppercase tracking-wider block">
+                2. Automated Actions to Execute
+              </span>
+              
+              <div class="space-y-3">
+                <div class="p-3 rounded-xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 space-y-2">
+                  <label class="flex items-center gap-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="actionSendEmail"
+                      name="actEmail"
+                      class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500">
+                    <span>Send Simulated Automated Email to Client / Account Rep</span>
+                  </label>
+
+                  @if (actionSendEmail) {
+                    <div class="pl-6 pt-1">
+                      <input
+                        type="text"
+                        [(ngModel)]="emailSubject"
+                        name="emailSubject"
+                        placeholder="Automated Email Subject (e.g. Contract Ready for Review)"
+                        class="w-full px-3 py-2 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600">
+                    </div>
+                  }
+                </div>
+
+                <div class="p-3 rounded-xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 space-y-2">
+                  <label class="flex items-center gap-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="actionCreateTask"
+                      name="actTask"
+                      class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500">
+                    <span>Automatically Schedule Follow-up Task for Assigned Representative</span>
+                  </label>
+
+                  @if (actionCreateTask) {
+                    <div class="pl-6 pt-1">
+                      <input
+                        type="text"
+                        [(ngModel)]="taskTitle"
+                        name="taskTitle"
+                        placeholder="Follow-up Task Objective (e.g. Conduct Discovery Call)"
+                        class="w-full px-3 py-2 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600">
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          </div>
+
+          <!-- FIXED PINNED BOTTOM SECTION (Always visible, never scrolled) -->
+          <div class="px-6 py-4 bg-slate-50/90 dark:bg-slate-900/90 border-t border-slate-200/90 dark:border-slate-800 flex items-center justify-between shrink-0">
+            <span class="text-[11px] text-slate-400 flex items-center gap-1.5">
+              <app-icon name="check" [size]="13" class="text-indigo-500"></app-icon>
+              <span>Automated background evaluation active 24/7</span>
+            </span>
+            <div class="flex items-center gap-2.5">
+              <button
+                type="button"
+                (click)="isCreateModalOpen = false"
+                class="px-4 py-2 text-xs font-semibold rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="px-5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 active:scale-95 transition-all flex items-center gap-2">
+                <app-icon name="plus" [size]="14"></app-icon>
+                <span>Save Automation Rule</span>
+              </button>
+            </div>
           </div>
         </form>
       </app-modal>

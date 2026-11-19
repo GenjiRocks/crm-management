@@ -312,9 +312,12 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
         maxWidth="720px"
         (close)="isCreateModalOpen = false">
 
-        <form (ngSubmit)="submitLeadForm()" class="space-y-4">
+        <form (ngSubmit)="submitLeadForm()" class="flex-1 flex flex-col min-h-0 overflow-hidden">
 
-          <!-- Section 1: Contact Identity -->
+          <!-- Middle Scrollable Section (Between Top Header & Bottom Footer) -->
+          <div class="p-6 overflow-y-auto min-h-0 modal-content-scroll flex-1 space-y-4">
+
+            <!-- Section 1: Contact Identity -->
           <div class="p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-800 space-y-3.5">
             <div class="flex items-center justify-between pb-1 border-b border-slate-200/60 dark:border-slate-800">
               <div class="flex items-center gap-2">
@@ -341,7 +344,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
                     name="firstName"
                     required
                     placeholder="e.g. Jessica"
-                    class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs">
+                    class="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
                 </div>
               </div>
 
@@ -359,7 +362,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
                     name="lastName"
                     required
                     placeholder="e.g. Miller"
-                    class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs">
+                    class="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
                 </div>
               </div>
             </div>
@@ -379,7 +382,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
                     name="email"
                     required
                     placeholder="name@company.com"
-                    class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs">
+                    class="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
                 </div>
               </div>
 
@@ -396,7 +399,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
                     [(ngModel)]="formPhone"
                     name="phone"
                     placeholder="+1 (555) 000-0000"
-                    class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs">
+                    class="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
                 </div>
               </div>
             </div>
@@ -426,7 +429,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
                     name="company"
                     required
                     placeholder="e.g. Acme Corporation"
-                    class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs">
+                    class="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
                 </div>
               </div>
 
@@ -443,7 +446,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
                     [(ngModel)]="formTitle"
                     name="title"
                     placeholder="e.g. VP of Technology / CTO"
-                    class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs">
+                    class="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
                 </div>
               </div>
             </div>
@@ -455,7 +458,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
                   <select
                     [(ngModel)]="formSource"
                     name="source"
-                    class="w-full appearance-none px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 pr-8 shadow-2xs">
+                    class="w-full appearance-none px-3 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 pr-8 shadow-2xs">
                     <option value="Website">🌐 Website</option>
                     <option value="Inbound Demo">🎯 Inbound Demo</option>
                     <option value="Referral">🤝 Referral</option>
@@ -475,7 +478,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
                   <select
                     [(ngModel)]="formStatus"
                     name="status"
-                    class="w-full appearance-none px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 pr-8 shadow-2xs">
+                    class="w-full appearance-none px-3 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 pr-8 shadow-2xs">
                     <option value="New">✨ New Prospect</option>
                     <option value="Contacted">💬 Contacted</option>
                     <option value="Qualified">🎯 Qualified</option>
@@ -500,7 +503,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
                     [(ngModel)]="formValue"
                     name="value"
                     placeholder="50000"
-                    class="w-full pl-8 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs">
+                    class="w-full pl-8 pr-3 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 shadow-2xs">
                 </div>
               </div>
             </div>
@@ -576,8 +579,10 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
             </div>
           </div>
 
-          <!-- Section 5: Footer Actions -->
-          <div class="flex items-center justify-between pt-3 border-t border-slate-200 dark:border-slate-800">
+          </div>
+
+          <!-- FIXED PINNED BOTTOM SECTION (Always visible, never scrolled) -->
+          <div class="px-6 py-4 bg-slate-50/90 dark:bg-slate-900/90 border-t border-slate-200/90 dark:border-slate-800 flex items-center justify-between shrink-0">
             <span class="text-[11px] text-slate-400 flex items-center gap-1.5 hidden sm:flex">
               <app-icon name="shield" [size]="13"></app-icon>
               <span>Duplicate check and audit trail automatically registered.</span>

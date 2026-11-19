@@ -12,13 +12,15 @@ import { CrmStateService } from './core/services/crm-state.service';
 import { NotificationService } from './core/services/notification.service';
 import { DealPriority } from './core/models/crm.models';
 
+import { CurrencyFormatPipe } from './shared/pipes/currency-format.pipe';
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule, RouterOutlet, FormsModule,
     SidebarComponent, NavbarComponent, ToastContainerComponent,
-    ModalComponent, DynamicFieldsComponent, AppIconComponent
+    ModalComponent, DynamicFieldsComponent, AppIconComponent, CurrencyFormatPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -39,6 +41,19 @@ export class AppComponent {
   dealPriority: DealPriority = 'High';
   dealCloseDate = new Date(Date.now() + 86400000 * 30).toISOString().split('T')[0];
   dealCustomFields: Record<string, any> = {};
+
+  get newDealForecast() {
+    const stage = this.crmState.pipelineStages().find(s => s.id === this.dealStageId);
+    const prob = stage ? stage.defaultProbability : 20;
+    const val = Number(this.dealValue) || 0;
+    const weighted = Math.round(val * (prob / 100));
+    return {
+      stageName: stage ? stage.name : 'Prospecting',
+      probability: prob,
+      weightedValue: weighted,
+      repName: this.crmState.getUserName(this.crmState.currentUserId())
+    };
+  }
 
   // Email form
   emailTo = '';

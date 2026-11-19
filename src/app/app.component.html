@@ -1,4 +1,4 @@
-<div class="flex h-screen w-screen overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans">
+<div class="flex h-full w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans">
   
   <!-- Left Persistent Sidebar -->
   <app-sidebar></app-sidebar>
@@ -27,21 +27,36 @@
   <!-- Global New Deal Modal -->
   <app-modal
     [isOpen]="isGlobalDealModalOpen"
-    title="Create Sales Deal"
-    subtitle="Add directly to active tenant pipeline"
-    icon="plus"
-    badge="Deal Flow"
-    maxWidth="680px"
+    title="Create Sales Opportunity"
+    subtitle="Add deal directly into the active tenant pipeline with automated win forecasting"
+    icon="pipeline"
+    badge="Live Pipeline"
+    maxWidth="740px"
     (close)="isGlobalDealModalOpen = false">
 
-    <form (ngSubmit)="submitNewDeal()" class="space-y-4">
-      <div class="p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-800 space-y-3.5">
+    <form (ngSubmit)="submitNewDeal()" class="flex-1 flex flex-col min-h-0 overflow-hidden">
+
+      <!-- Middle Scrollable Section (Between Top Header & Bottom Footer) -->
+      <div class="p-6 overflow-y-auto min-h-0 modal-content-scroll flex-1 space-y-4">
+
+        <!-- Card 1: Core Opportunity Details -->
+      <div class="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-800/50 border border-slate-200/90 dark:border-slate-700/80 space-y-3.5 shadow-2xs">
+        <div class="flex items-center justify-between pb-1 border-b border-slate-200/60 dark:border-slate-700/60">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <app-icon name="briefcase" [size]="13"></app-icon>
+            </span>
+            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 tracking-tight">Deal Terms & Scope</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-medium">* Required fields</span>
+        </div>
+
         <div>
-          <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
             Deal Title <span class="text-rose-500">*</span>
           </label>
           <div class="relative">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <app-icon name="briefcase" [size]="14"></app-icon>
             </span>
             <input
@@ -50,17 +65,17 @@
               name="title"
               required
               placeholder="e.g. Acme Corp - Global License Expansion"
-              class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs">
+              class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div>
-            <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-              Company <span class="text-rose-500">*</span>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              Target Account / Company <span class="text-rose-500">*</span>
             </label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                 <app-icon name="building" [size]="14"></app-icon>
               </span>
               <select
@@ -68,45 +83,46 @@
                 (ngModelChange)="onCompanySelected($event)"
                 name="companyId"
                 required
-                class="w-full appearance-none pl-9 pr-8 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs">
+                class="w-full appearance-none pl-10 pr-8 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 shadow-2xs">
                 @for (comp of crmState.tenantCompanies(); track comp.id) {
                   <option [value]="comp.id">{{ comp.name }} ({{ comp.tier }})</option>
                 }
               </select>
-              <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-400">
+              <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
                 <app-icon name="chevron-down" [size]="13"></app-icon>
               </span>
             </div>
           </div>
 
           <div>
-            <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-              Deal Value ({{ crmState.currencySymbol() }})
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              Deal Value ({{ crmState.currencySymbol() }}) <span class="text-rose-500">*</span>
             </label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 font-bold text-xs">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 font-bold text-xs">
                 {{ crmState.currencySymbol() }}
               </span>
               <input
                 type="number"
                 [(ngModel)]="dealValue"
                 name="value"
+                required
                 placeholder="50000"
-                class="w-full pl-8 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs">
+                class="w-full pl-9 pr-3 py-2.5 text-xs font-bold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 shadow-2xs">
             </div>
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">Stage</label>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Pipeline Stage</label>
             <div class="relative">
               <select
                 [(ngModel)]="dealStageId"
                 name="stage"
-                class="w-full appearance-none px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 pr-8 shadow-2xs">
+                class="w-full appearance-none px-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 pr-8 shadow-2xs">
                 @for (s of crmState.pipelineStages(); track s.id) {
-                  <option [value]="s.id">{{ s.name }}</option>
+                  <option [value]="s.id">{{ s.name }} ({{ s.defaultProbability }}%)</option>
                 }
               </select>
               <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-400">
@@ -116,16 +132,16 @@
           </div>
 
           <div>
-            <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">Priority</label>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Urgency Priority</label>
             <div class="relative">
               <select
                 [(ngModel)]="dealPriority"
                 name="priority"
-                class="w-full appearance-none px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 pr-8 shadow-2xs">
+                class="w-full appearance-none px-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 pr-8 shadow-2xs">
                 <option value="Urgent">🔥 Urgent Priority</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
+                <option value="High">⚡ High Priority</option>
+                <option value="Medium">Standard Medium</option>
+                <option value="Low">Low Priority</option>
               </select>
               <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-400">
                 <app-icon name="chevron-down" [size]="13"></app-icon>
@@ -134,35 +150,91 @@
           </div>
 
           <div>
-            <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">Close Date</label>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Target Close Date</label>
             <input
               type="date"
               [(ngModel)]="dealCloseDate"
               name="close"
-              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs">
+              class="w-full px-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 shadow-2xs">
           </div>
         </div>
       </div>
 
+      <!-- Card 2: Live Deal Forecast & Revenue Impact (Interactive Widget!) -->
+      <div class="p-4 rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white border border-indigo-500/30 shadow-xl space-y-3 relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-indigo-500/20 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-200">Pipeline Revenue Forecast</span>
+          </div>
+
+          <!-- Probability Badge -->
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-xs">
+            {{ newDealForecast.probability }}% Win Probability
+          </span>
+        </div>
+
+        <!-- Progress Meter -->
+        <div class="w-full bg-slate-800/80 rounded-full h-2 overflow-hidden border border-slate-700/50">
+          <div
+            class="h-full rounded-full bg-gradient-to-r from-teal-400 to-emerald-400 transition-all duration-300"
+            [style.width.%]="newDealForecast.probability">
+          </div>
+        </div>
+
+        <!-- Revenue Impact Details -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px] text-slate-300">
+          <div class="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5">
+            <app-icon name="dollar" [size]="12"></app-icon>
+            <span>Weighted: <strong class="text-emerald-400 font-bold">{{ newDealForecast.weightedValue | crmCurrency }}</strong></span>
+          </div>
+
+          <div class="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5">
+            <app-icon name="user" [size]="12"></app-icon>
+            <span class="truncate">Owner: <strong class="text-white">{{ newDealForecast.repName }}</strong></span>
+          </div>
+
+          <div class="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5">
+            <app-icon name="pipeline" [size]="12"></app-icon>
+            <span class="truncate">Stage: <strong class="text-indigo-300">{{ newDealForecast.stageName }}</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Custom Fields for Deal -->
       <app-dynamic-fields
         entityType="deal"
         [values]="dealCustomFields"
         (valuesChange)="dealCustomFields = $event">
       </app-dynamic-fields>
 
-      <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-200 dark:border-slate-800">
-        <button
-          type="button"
-          (click)="isGlobalDealModalOpen = false"
-          class="px-4 py-2 text-xs font-semibold rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95">
-          Cancel
-        </button>
-        <button
-          type="submit"
-          class="px-5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 active:scale-95 transition-all flex items-center gap-1.5">
-          <app-icon name="plus" [size]="14"></app-icon>
-          <span>Create Opportunity</span>
-        </button>
+      </div>
+
+      <!-- FIXED PINNED BOTTOM SECTION (Always visible, never scrolled) -->
+      <div class="px-6 py-4 bg-slate-50/90 dark:bg-slate-900/90 border-t border-slate-200/90 dark:border-slate-800 flex items-center justify-between shrink-0">
+        <span class="text-[11px] text-slate-400 flex items-center gap-1.5 hidden sm:flex">
+          <app-icon name="shield" [size]="12"></app-icon>
+          <span>Added to tenant active pipeline & audit timeline</span>
+        </span>
+        <div class="flex items-center gap-2.5 ml-auto">
+          <button
+            type="button"
+            (click)="isGlobalDealModalOpen = false"
+            class="px-4 py-2 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition active:scale-95 shadow-2xs">
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="px-5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 active:scale-95 transition-all flex items-center gap-2">
+            <app-icon name="sparkles" [size]="14"></app-icon>
+            <span>Create Opportunity</span>
+          </button>
+        </div>
       </div>
     </form>
   </app-modal>
@@ -174,17 +246,73 @@
     subtitle="Sends realistic notification & logs to omnichannel timeline"
     icon="mail"
     badge="Mock Mailer"
-    maxWidth="600px"
+    maxWidth="640px"
     (close)="isGlobalEmailModalOpen = false">
 
-    <form (ngSubmit)="submitEmail()" class="space-y-4">
-      <div class="p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-800 space-y-3.5">
+    <form (ngSubmit)="submitEmail()" class="flex-1 flex flex-col min-h-0 overflow-hidden">
+
+      <!-- Middle Scrollable Section (Between Top Header & Bottom Footer) -->
+      <div class="p-6 overflow-y-auto min-h-0 modal-content-scroll flex-1 space-y-4">
+
+        <!-- Live Mock Email Preview Card (Reference Image 3 Style) -->
+      <div class="p-4 rounded-2xl bg-gradient-to-br from-indigo-50/90 via-slate-50/80 to-purple-50/60 dark:from-indigo-950/40 dark:via-slate-900/60 dark:to-purple-950/30 border border-indigo-200/80 dark:border-indigo-900/40 shadow-xs">
+        <div class="flex items-center justify-between gap-3 mb-2.5">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-indigo-500/25">
+              <app-icon name="mail" [size]="18"></app-icon>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+                  {{ emailSubject.trim() || 'Enterprise Client Communication' }}
+                </h4>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                  Mock Dispatch
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                Recipient: {{ emailTo || 'prospect@enterprise.com' }} • Dispatched by Jessica Miller
+              </p>
+            </div>
+          </div>
+
+          <span class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 hidden sm:flex items-center gap-1 shadow-2xs">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Live SMTP Mock</span>
+          </span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-indigo-100/70 dark:border-indigo-900/40 text-center">
+          <div class="p-1.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-[10px] text-slate-600 dark:text-slate-300 font-medium truncate">
+            ✉️ Instant Audio Alert
+          </div>
+          <div class="p-1.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-[10px] text-slate-600 dark:text-slate-300 font-medium truncate">
+            📎 Attached Terms
+          </div>
+          <div class="p-1.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-[10px] text-indigo-600 dark:text-indigo-400 font-bold truncate">
+            ⚡ Omnichannel Log
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Inputs Section -->
+      <div class="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-800/50 border border-slate-200/90 dark:border-slate-700/80 space-y-3.5 shadow-2xs">
+        <div class="flex items-center justify-between pb-1 border-b border-slate-200/60 dark:border-slate-700/60">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <app-icon name="mail" [size]="13"></app-icon>
+            </span>
+            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 tracking-tight">Email Payload & Content</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-medium">* Required fields</span>
+        </div>
+
         <div>
-          <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-            Recipient Email <span class="text-rose-500">*</span>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+            Recipient Work Email <span class="text-rose-500">*</span>
           </label>
           <div class="relative">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <app-icon name="mail" [size]="14"></app-icon>
             </span>
             <input
@@ -193,40 +321,49 @@
               name="emailTo"
               required
               placeholder="prospect@company.com"
-              class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs">
+              class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
           </div>
         </div>
 
         <div>
-          <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
             Subject Line <span class="text-rose-500">*</span>
           </label>
-          <input
-            type="text"
-            [(ngModel)]="emailSubject"
-            name="emailSubject"
-            required
-            placeholder="e.g. Octax Enterprise Platform Demo & Architecture Walkthrough"
-            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs">
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <app-icon name="bookmark" [size]="14"></app-icon>
+            </span>
+            <input
+              type="text"
+              [(ngModel)]="emailSubject"
+              name="emailSubject"
+              required
+              placeholder="e.g. Octax Enterprise Platform Demo & Architecture Walkthrough"
+              class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
+          </div>
         </div>
 
         <div>
-          <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-            Message Body & Notes
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+            Message Body & Notes <span class="text-rose-500">*</span>
           </label>
           <textarea
             [(ngModel)]="emailBody"
             name="emailBody"
             rows="5"
-            placeholder="Write personalized email content..."
-            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-2xs resize-none"></textarea>
+            required
+            placeholder="Write personalized email content, pricing terms, or proposal notes..."
+            class="w-full p-3.5 text-xs font-medium rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs resize-none"></textarea>
         </div>
       </div>
 
-      <div class="flex items-center justify-between pt-3 border-t border-slate-200 dark:border-slate-800">
+      </div>
+
+      <!-- FIXED PINNED BOTTOM SECTION (Always visible, never scrolled) -->
+      <div class="px-6 py-4 bg-slate-50/90 dark:bg-slate-900/90 border-t border-slate-200/90 dark:border-slate-800 flex items-center justify-between shrink-0">
         <span class="text-[11px] text-slate-400 flex items-center gap-1.5 hidden sm:flex">
-          <app-icon name="bell" [size]="12"></app-icon>
-          <span>Triggers instant sound effect, toast & bell alert</span>
+          <app-icon name="bell" [size]="12" class="text-indigo-500"></app-icon>
+          <span>Triggers instant audio chime, toast & bell alert</span>
         </span>
         <div class="flex items-center gap-2.5 ml-auto">
           <button
@@ -237,7 +374,7 @@
           </button>
           <button
             type="submit"
-            class="px-5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 active:scale-95 transition-all flex items-center gap-1.5">
+            class="px-5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 active:scale-95 transition-all flex items-center gap-2">
             <app-icon name="mail" [size]="14"></app-icon>
             <span>Simulate Send Email</span>
           </button>

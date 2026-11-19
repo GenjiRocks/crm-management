@@ -282,150 +282,330 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
         [isOpen]="isComposerOpen"
         [title]="composerTitle"
         [icon]="composerType === 'email' ? 'mail' : composerType === 'call' ? 'phone' : 'calendar'"
-        maxWidth="580px"
+        badge="Activity Center"
+        maxWidth="680px"
         (close)="isComposerOpen = false">
 
-        <form (ngSubmit)="submitActivity()" class="space-y-4">
+        <form (ngSubmit)="submitActivity()" class="flex-1 flex flex-col min-h-0 overflow-hidden">
           
-          <!-- Mock Email Composer -->
-          @if (composerType === 'email') {
-            <!-- Template Quick Select -->
-            <div>
-              <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Template Preset</label>
-              <select
-                [(ngModel)]="emailTemplate"
-                (ngModelChange)="applyEmailTemplate($event)"
-                name="template"
-                class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none">
-                <option value="custom">-- Custom Message --</option>
-                <option value="proposal">Enterprise Proposal & Pricing SLA</option>
-                <option value="recap">Executive Meeting Recap & Next Steps</option>
-                <option value="welcome">Welcome to Platform Onboarding</option>
-                <option value="contract">Master Service Agreement (MSA) Attached</option>
-              </select>
+          <!-- Middle Scrollable Section (between top header and bottom footer) -->
+          <div class="p-6 overflow-y-auto min-h-0 modal-content-scroll flex-1 space-y-4">
+
+            <!-- 1. Live Activity Intelligence Preview Card (Reference Image 3 Style) -->
+          <div class="p-4 rounded-2xl border shadow-xs transition-all"
+            [ngClass]="{
+              'bg-gradient-to-br from-indigo-50/90 via-slate-50/80 to-purple-50/60 dark:from-indigo-950/40 dark:via-slate-900/60 dark:to-purple-950/30 border-indigo-200/80 dark:border-indigo-900/40': composerType === 'email',
+              'bg-gradient-to-br from-teal-50/90 via-slate-50/80 to-cyan-50/60 dark:from-teal-950/40 dark:via-slate-900/60 dark:to-cyan-950/30 border-teal-200/80 dark:border-teal-900/40': composerType === 'call',
+              'bg-gradient-to-br from-amber-50/90 via-slate-50/80 to-orange-50/60 dark:from-amber-950/40 dark:via-slate-900/60 dark:to-orange-950/30 border-amber-200/80 dark:border-amber-900/40': composerType === 'meeting',
+              'bg-gradient-to-br from-slate-50/90 via-indigo-50/80 to-slate-50/60 dark:from-slate-900/60 dark:via-indigo-950/40 dark:to-slate-900/60 border-slate-200/80 dark:border-slate-800': composerType === 'note'
+            }">
+            
+            <div class="flex items-center justify-between gap-3 mb-2.5">
+              <div class="flex items-center gap-3">
+                <!-- Squircle Avatar Icon -->
+                <div class="w-11 h-11 rounded-2xl font-black text-sm flex items-center justify-center text-white shadow-md transition-all"
+                  [ngClass]="{
+                    'bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-600 shadow-indigo-500/25': composerType === 'email',
+                    'bg-gradient-to-br from-teal-500 via-emerald-500 to-cyan-600 shadow-teal-500/25': composerType === 'call',
+                    'bg-gradient-to-br from-amber-500 via-orange-500 to-yellow-600 shadow-amber-500/25': composerType === 'meeting',
+                    'bg-gradient-to-br from-slate-600 to-slate-800 shadow-slate-500/25': composerType === 'note'
+                  }">
+                  <app-icon [name]="composerType === 'email' ? 'mail' : composerType === 'call' ? 'phone' : 'calendar'" [size]="18"></app-icon>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+                      @if (composerType === 'email') {
+                        {{ formSubject.trim() || 'Client Communication Message' }}
+                      } @else if (composerType === 'call') {
+                        Phone Conversation with Stakeholder
+                      } @else if (composerType === 'meeting') {
+                        {{ formSubject.trim() || 'Strategy & Review Sync' }}
+                      } @else {
+                        Internal Account Strategy Note
+                      }
+                    </h4>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                      [ngClass]="{
+                        'bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200': composerType === 'email',
+                        'bg-teal-100 text-teal-700 dark:bg-teal-950 dark:text-teal-300 border border-teal-200': composerType === 'call',
+                        'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300 border border-amber-200': composerType === 'meeting',
+                        'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200': composerType === 'note'
+                      }">
+                      @if (composerType === 'email') { Mock Dispatch }
+                      @else if (composerType === 'call') { {{ callOutcome }} }
+                      @else if (composerType === 'meeting') { Scheduled Sync }
+                      @else { Confidential }
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                    @if (composerType === 'email') {
+                      To: {{ formTo || 'jake.williams@acmecorp.com' }} • CC: {{ formCc || 'sales-ops@octax.cloud' }}
+                    } @else if (composerType === 'call') {
+                      Duration: {{ callDuration }} mins • Connected rep: Jessica Miller
+                    } @else if (composerType === 'meeting') {
+                      {{ meetingLocation || 'Google Meet' }} • Target: {{ meetingTime || 'Upcoming' }}
+                    } @else {
+                      Restricted to authorized account team
+                    }
+                  </p>
+                </div>
+              </div>
+
+              <span class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hidden sm:flex items-center gap-1 shadow-2xs">
+                <span>⚡ Omnichannel Timeline</span>
+              </span>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- Mini Quick Chips -->
+            <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200/60 dark:border-slate-800/60 text-center">
+              <div class="p-1.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-[10px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                @if (composerType === 'email') { ✉️ Live Mock SMTP }
+                @else if (composerType === 'call') { ⏱️ {{ callDuration }}m Call Log }
+                @else if (composerType === 'meeting') { 📅 {{ meetingTime ? (meetingTime | date:'short') : 'Scheduled Time' }} }
+                @else { 🔒 Encrypted Note }
+              </div>
+              <div class="p-1.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-[10px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                📎 2 Document Attachments
+              </div>
+              <div class="p-1.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 text-[10px] text-indigo-600 dark:text-indigo-400 font-bold truncate">
+                👤 Jessica Miller
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Form Inputs Section -->
+          <div class="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-800/50 border border-slate-200/90 dark:border-slate-700/80 space-y-3.5 shadow-2xs">
+            <div class="flex items-center justify-between pb-1 border-b border-slate-200/60 dark:border-slate-700/60">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                  <app-icon name="edit" [size]="13"></app-icon>
+                </span>
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 tracking-tight">Activity Details & Payload</span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-medium">* Required fields</span>
+            </div>
+
+            <!-- Mock Email Composer Specifics -->
+            @if (composerType === 'email') {
+              <!-- Template Quick Select -->
               <div>
-                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">To Email *</label>
-                <input
-                  type="email"
-                  [(ngModel)]="formTo"
-                  name="to"
-                  required
-                  placeholder="jake.williams@acmecorp.com"
-                  class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none">
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Select Email Template Preset</label>
+                <div class="relative">
+                  <select
+                    [(ngModel)]="emailTemplate"
+                    (ngModelChange)="applyEmailTemplate($event)"
+                    name="template"
+                    class="w-full appearance-none px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 pr-8 shadow-2xs">
+                    <option value="custom">-- Custom Personalized Message --</option>
+                    <option value="proposal">Enterprise Proposal & Pricing SLA</option>
+                    <option value="recap">Executive Meeting Recap & Next Steps</option>
+                    <option value="welcome">Welcome to Platform Onboarding</option>
+                    <option value="contract">Master Service Agreement (MSA) Attached</option>
+                  </select>
+                  <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                    <app-icon name="chevron-down" [size]="13"></app-icon>
+                  </span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    To Recipient Email <span class="text-rose-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <app-icon name="mail" [size]="14"></app-icon>
+                    </span>
+                    <input
+                      type="email"
+                      [(ngModel)]="formTo"
+                      name="to"
+                      required
+                      placeholder="jake.williams@acmecorp.com"
+                      class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">CC / Team Sync</label>
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <app-icon name="user" [size]="14"></app-icon>
+                    </span>
+                    <input
+                      type="text"
+                      [(ngModel)]="formCc"
+                      name="cc"
+                      placeholder="sales-ops@octax.cloud"
+                      class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
+                  </div>
+                </div>
               </div>
 
               <div>
-                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">CC / Team</label>
-                <input
-                  type="text"
-                  [(ngModel)]="formCc"
-                  name="cc"
-                  placeholder="sales-ops@octax.cloud"
-                  class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none">
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Subject Line <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <app-icon name="bookmark" [size]="14"></app-icon>
+                  </span>
+                  <input
+                    type="text"
+                    [(ngModel)]="formSubject"
+                    name="subject"
+                    required
+                    placeholder="Enter email subject line..."
+                    class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
+                </div>
               </div>
-            </div>
+            }
 
+            <!-- Phone Call Specific Fields -->
+            @if (composerType === 'call') {
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Call Outcome</label>
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <app-icon name="phone" [size]="14"></app-icon>
+                    </span>
+                    <select
+                      [(ngModel)]="callOutcome"
+                      name="outcome"
+                      class="w-full appearance-none pl-10 pr-8 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 shadow-2xs">
+                      <option value="Connected">Connected & Spoke</option>
+                      <option value="Left Voicemail">Left Voicemail</option>
+                      <option value="No Answer">No Answer</option>
+                      <option value="Busy">Busy</option>
+                    </select>
+                    <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                      <app-icon name="chevron-down" [size]="13"></app-icon>
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Duration (minutes)</label>
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <app-icon name="clock" [size]="14"></app-icon>
+                    </span>
+                    <input
+                      type="number"
+                      [(ngModel)]="callDuration"
+                      name="duration"
+                      placeholder="15"
+                      class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
+                  </div>
+                </div>
+              </div>
+            }
+
+            <!-- Meeting Specific Fields -->
+            @if (composerType === 'meeting') {
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Meeting Location / Video Conference</label>
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <app-icon name="link" [size]="14"></app-icon>
+                    </span>
+                    <input
+                      type="text"
+                      [(ngModel)]="meetingLocation"
+                      name="location"
+                      placeholder="Google Meet / Zoom Room 2"
+                      class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Scheduled Time</label>
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <app-icon name="calendar" [size]="14"></app-icon>
+                    </span>
+                    <input
+                      type="datetime-local"
+                      [(ngModel)]="meetingTime"
+                      name="time"
+                      class="w-full pl-10 pr-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs">
+                  </div>
+                </div>
+              </div>
+            }
+
+            <!-- Main Message / Notes Textarea -->
             <div>
-              <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Subject Line *</label>
-              <input
-                type="text"
-                [(ngModel)]="formSubject"
-                name="subject"
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                {{ composerType === 'email' ? 'Email Message Body' : 'Discussion Notes & Key Next Steps' }} <span class="text-rose-500">*</span>
+              </label>
+              <textarea
+                [(ngModel)]="formBody"
+                name="body"
+                rows="5"
                 required
-                class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none">
+                placeholder="Write detailed notes, context, or email payload..."
+                class="w-full p-3.5 text-xs font-medium rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 transition shadow-2xs resize-none"></textarea>
             </div>
-          }
 
-          <!-- Phone Call specific fields -->
-          @if (composerType === 'call') {
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Call Outcome</label>
-                <select
-                  [(ngModel)]="callOutcome"
-                  name="outcome"
-                  class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
-                  <option value="Connected">Connected & Spoke</option>
-                  <option value="Left Voicemail">Left Voicemail</option>
-                  <option value="No Answer">No Answer</option>
-                  <option value="Busy">Busy</option>
-                </select>
+            <!-- Attachments Showcase -->
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2 flex-wrap">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                  <app-icon name="download" [size]="13"></app-icon>
+                </span>
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Mock Document Attachments</span>
               </div>
-
-              <div>
-                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Duration (minutes)</label>
-                <input
-                  type="number"
-                  [(ngModel)]="callDuration"
-                  name="duration"
-                  placeholder="15"
-                  class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">
+                  📄 Enterprise_Proposal.pdf (2.4 MB)
+                </span>
+                <span class="px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">
+                  🛡️ SLA_Security_Terms.docx
+                </span>
               </div>
             </div>
-          }
 
-          <!-- Meeting specific fields -->
-          @if (composerType === 'meeting') {
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Location / Platform</label>
-                <input
-                  type="text"
-                  [(ngModel)]="meetingLocation"
-                  name="location"
-                  placeholder="Google Meet / Zoom Room 2"
-                  class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
-              </div>
-
-              <div>
-                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Meeting Time</label>
-                <input
-                  type="datetime-local"
-                  [(ngModel)]="meetingTime"
-                  name="time"
-                  class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
-              </div>
-            </div>
-          }
-
-          <!-- Main Note / Body Area -->
-          <div>
-            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-              {{ composerType === 'email' ? 'Email Message' : 'Discussion Notes & Key Next Steps' }}
-            </label>
-            <textarea
-              [(ngModel)]="formBody"
-              name="body"
-              rows="5"
-              required
-              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none"></textarea>
           </div>
 
-          <!-- Attachments Mock -->
-          <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-dashed border-slate-300 dark:border-slate-700 text-center text-xs text-slate-500">
-            <span class="font-medium text-indigo-600 dark:text-indigo-400">Attach Document</span> (Enterprise_Proposal.pdf, SLA_Terms.docx)
           </div>
 
-          <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
-            <button
-              type="button"
-              (click)="isComposerOpen = false"
-              class="px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300">
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="px-4 py-1.5 text-xs font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm flex items-center gap-1.5">
-              @if (composerType === 'email') {
-                <app-icon name="mail" [size]="14"></app-icon>
-                <span>Mock Send & Log Email</span>
-              } @else {
-                <span>Save to Timeline</span>
-              }
-            </button>
+          <!-- FIXED PINNED BOTTOM SECTION (Always visible, never scrolled) -->
+          <div class="px-6 py-4 bg-slate-50/90 dark:bg-slate-900/90 border-t border-slate-200/90 dark:border-slate-800 flex items-center justify-between shrink-0">
+            <span class="text-[11px] text-slate-400 flex items-center gap-1.5">
+              <app-icon name="check" [size]="13" class="text-indigo-500"></app-icon>
+              <span>Instant sound effect & omnichannel timeline dispatch</span>
+            </span>
+            <div class="flex items-center gap-2.5">
+              <button
+                type="button"
+                (click)="isComposerOpen = false"
+                class="px-4 py-2 text-xs font-semibold rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="px-5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 active:scale-95 transition-all flex items-center gap-2">
+                @if (composerType === 'email') {
+                  <app-icon name="mail" [size]="14"></app-icon>
+                  <span>Mock Send & Log Email</span>
+                } @else if (composerType === 'call') {
+                  <app-icon name="phone" [size]="14"></app-icon>
+                  <span>Save Call to Timeline</span>
+                } @else if (composerType === 'meeting') {
+                  <app-icon name="calendar" [size]="14"></app-icon>
+                  <span>Schedule Meeting & Sync</span>
+                } @else {
+                  <app-icon name="check" [size]="14"></app-icon>
+                  <span>Save Strategy Note</span>
+                }
+              </button>
+            </div>
           </div>
         </form>
       </app-modal>

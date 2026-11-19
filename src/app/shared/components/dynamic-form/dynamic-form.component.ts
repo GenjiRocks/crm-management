@@ -11,24 +11,26 @@ import { AppIconComponent } from '../app-icon/app-icon.component';
   imports: [CommonModule, FormsModule, AppIconComponent],
   template: `
     @if (entityFields().length > 0) {
-      <div class="pt-4 border-t border-slate-200/80 dark:border-slate-800 space-y-3">
+      <div class="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-800/50 border border-slate-200/90 dark:border-slate-700/80 space-y-3.5 shadow-2xs">
         <!-- Section Header -->
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-              Tenant Custom Fields
+        <div class="flex items-center justify-between pb-1 border-b border-slate-200/60 dark:border-slate-700/60">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <app-icon name="settings" [size]="13"></app-icon>
+            </span>
+            <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 tracking-tight">
+              Tenant Custom Attributes
             </h4>
           </div>
-          <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700">
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60">
             Dynamic Schema
           </span>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 p-3.5 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/70 dark:border-slate-800">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           @for (field of entityFields(); track field.id) {
             <div class="form-group space-y-1">
-              <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">
                 {{ field.label }}
                 @if (field.required) {
                   <span class="text-rose-500">*</span>
@@ -41,7 +43,7 @@ import { AppIconComponent } from '../app-icon/app-icon.component';
                   type="text"
                   [ngModel]="values[field.key]"
                   (ngModelChange)="onFieldChange(field.key, $event)"
-                  class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none transition shadow-2xs"
+                  class="w-full px-3.5 py-2.5 text-xs font-medium rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 focus:outline-none transition shadow-2xs"
                   [placeholder]="'Enter ' + field.label">
               }
 
@@ -51,7 +53,7 @@ import { AppIconComponent } from '../app-icon/app-icon.component';
                   type="number"
                   [ngModel]="values[field.key]"
                   (ngModelChange)="onFieldChange(field.key, $event)"
-                  class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none transition shadow-2xs"
+                  class="w-full px-3.5 py-2.5 text-xs font-medium rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 focus:outline-none transition shadow-2xs"
                   [placeholder]="'0'">
               }
 
@@ -61,13 +63,13 @@ import { AppIconComponent } from '../app-icon/app-icon.component';
                   <select
                     [ngModel]="values[field.key]"
                     (ngModelChange)="onFieldChange(field.key, $event)"
-                    class="w-full appearance-none px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none transition shadow-2xs pr-8">
+                    class="w-full appearance-none px-3.5 py-2.5 text-xs font-medium rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 focus:outline-none transition shadow-2xs pr-8">
                     <option value="">-- Select {{ field.label }} --</option>
                     @for (opt of field.options; track opt) {
                       <option [value]="opt">{{ opt }}</option>
                     }
                   </select>
-                  <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-400">
+                  <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
                     <app-icon name="chevron-down" [size]="14"></app-icon>
                   </span>
                 </div>
@@ -75,15 +77,15 @@ import { AppIconComponent } from '../app-icon/app-icon.component';
 
               <!-- Boolean Switch -->
               @if (field.type === 'boolean') {
-                <div class="pt-1">
+                <div class="pt-1.5">
                   <label class="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
                       [ngModel]="values[field.key]"
                       (ngModelChange)="onFieldChange(field.key, $event)"
                       class="sr-only peer">
-                    <div class="w-9 h-5 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
-                    <span class="ml-2.5 text-xs font-medium text-slate-700 dark:text-slate-300">
+                    <div class="w-10 h-5.5 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4.5 after:w-4.5 after:transition-all peer-checked:bg-indigo-600"></div>
+                    <span class="ml-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300">
                       {{ values[field.key] ? 'Enabled' : 'Disabled' }}
                     </span>
                   </label>

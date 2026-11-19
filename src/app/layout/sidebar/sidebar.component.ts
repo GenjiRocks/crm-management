@@ -9,7 +9,7 @@ import { AppIconComponent } from '../../shared/components/app-icon/app-icon.comp
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive, AppIconComponent],
   template: `
-    <aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col justify-between shrink-0 select-none">
+    <aside class="w-64 h-full border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col justify-between shrink-0 select-none">
       
       <!-- Top Branding & Nav List -->
       <div class="p-4 space-y-6">
